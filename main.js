@@ -10,10 +10,20 @@ var data = [
 	0,0,5,2,0,6,3,0,0
 	];
 var truthTable = [];
+var selectionTable = [];
 var ids = [];
 var indexs = [];
 var row = 9;
 var column = 9;
+
+getSelection = id =>{
+	let x = Number(String(id)[1]);
+	let x2 = Number(String(id)[0]);
+	let section = x<4?1:x<7?2:3;
+	let section2 = x2<4?1:x2<7?3:6;
+	section2 = Number(id) < 39?0:section2;
+	return (section+section2);
+}
 
 generateTruthTable = (data)=>{
 	for (var i = 0; i < data.length; i++) {
@@ -30,6 +40,7 @@ initialize = ()=>{
 	for (var i = 1; i <= column; i++) {
 		for (var j = 1; j <= row; j++) {
 			ids.push(String(i)+String(j));
+			selectionTable.push(getSelection(String(i)+String(j)));
 			let index = (((i*row)+j)-column)-1;
 			indexs.push(index);
 			document.getElementById(String(i)+String(j)).innerHTML = data[index];
@@ -78,7 +89,3 @@ getColumn = id =>{
 	}
 	return tempData;
 }
-
-console.log(getColumn(99));
-// console.log(getNumber(89));
-// console.log(getRow(25));
