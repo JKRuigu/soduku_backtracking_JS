@@ -21,7 +21,7 @@ getSelection = id =>{
 	let x2 = Number(String(id)[0]);
 	let section = x<4?1:x<7?2:3;
 	let section2 = x2<4?1:x2<7?3:6;
-	section2 = Number(id) < 39?0:section2;
+	section2 = Number(id) < 41?0:section2;
 	return (section+section2);
 }
 
@@ -43,7 +43,7 @@ initialize = ()=>{
 			selectionTable.push(getSelection(String(i)+String(j)));
 			let index = (((i*row)+j)-column)-1;
 			indexs.push(index);
-			document.getElementById(String(i)+String(j)).innerHTML = data[index];
+			document.getElementById(String(i)+String(j)).innerHTML = getSelection(String(i)+String(j));
 		}
 	}
 }
@@ -56,7 +56,6 @@ getNumber = (id)=>{
 	}
 	return (Number(String(id)[1]))-1;
 }
-
 
 getRow = id =>{
 	var min  = 0;
