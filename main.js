@@ -41,9 +41,12 @@ initialize = ()=>{
 		for (var j = 1; j <= row; j++) {
 			ids.push(String(i)+String(j));
 			selectionTable.push(getSelection(String(i)+String(j)));
+			let sec = getSelection(String(i)+String(j));
+			let sec2 = sec==1||sec==3||sec==5||sec==7||sec==9?"one":"two";
+			document.getElementById(String(i)+String(j)).classList.add(sec2);	
 			let index = (((i*row)+j)-column)-1;
 			indexs.push(index);
-			document.getElementById(String(i)+String(j)).innerHTML = getSelection(String(i)+String(j));
+			document.getElementById(String(i)+String(j)).innerHTML = data[index];
 		}
 	}
 }
