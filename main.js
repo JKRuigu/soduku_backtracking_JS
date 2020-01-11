@@ -15,6 +15,8 @@ var ids = [];
 var indexs = [];
 var row = 9;
 var column = 9;
+var selectionTable2 = [[],[],[],[],[],[],[],[],[]];
+var selectionTable3 = [[],[],[],[],[],[],[],[],[]];
 
 getSelection = id =>{
 	let x = Number(String(id)[1]);
@@ -25,18 +27,19 @@ getSelection = id =>{
 	return (section+section2);
 }
 
-generateTruthTable = (data)=>{
+generateTruthTable = data =>{
 	for (var i = 0; i < data.length; i++) {
 		if (data[i] == 0) {
-			truthTable.push(false);
-		}else{
 			truthTable.push(true);
+		}else{
+			truthTable.push(false);
 		}
 	}
 }
+
 generateTruthTable(data);
 
-initialize = ()=>{
+initialize = () =>{
 	for (var i = 1; i <= column; i++) {
 		for (var j = 1; j <= row; j++) {
 			ids.push(String(i)+String(j));
@@ -51,14 +54,90 @@ initialize = ()=>{
 	}
 }
 
+sections = () =>{
+	for (var i = 0; i < row*column; i++) {
+		if (selectionTable[i] == 1) {
+			if ( truthTable[i] ) {
+				selectionTable2[0].push(i);
+			}
+		}else if (selectionTable[i] == 2) {
+			if ( truthTable[i] ) {
+				selectionTable2[1].push(i);
+			}
+			
+		}else if (selectionTable[i] == 3) {
+			if ( truthTable[i] ) {
+				selectionTable2[2].push(i);
+			}
+			
+		}else if (selectionTable[i] == 4) {
+			if ( truthTable[i] ) {
+				selectionTable2[3].push(i);
+			}
+			
+		}else if (selectionTable[i] == 5) {
+			if ( truthTable[i] ) {
+				selectionTable2[4].push(i);
+			}
+			
+		}else if (selectionTable[i] == 6) {
+			if ( truthTable[i] ) {
+				selectionTable2[5].push(i);
+			}
+			
+		}else if (selectionTable[i] == 7) {
+			if ( truthTable[i] ) {
+				selectionTable2[6].push(i);
+			}
+			
+		}else if (selectionTable[i] == 8) {
+			if ( truthTable[i] ) {
+				selectionTable2[7].push(i);
+			}
+			
+		}else if (selectionTable[i] == 9) {
+			if ( truthTable[i] ) {
+				selectionTable2[8].push(i);
+			}
+			
+		}
+	}
+}
+
+sections2 = () =>{
+	for (var i = 0; i < row*column; i++) {
+		if (selectionTable[i] == 1) {
+				selectionTable3[0].push(i);
+		}else if (selectionTable[i] == 2) {
+				selectionTable3[1].push(i);
+		}else if (selectionTable[i] == 3) {
+				selectionTable3[2].push(i);
+		}else if (selectionTable[i] == 4) {
+				selectionTable3[3].push(i);
+		}else if (selectionTable[i] == 5) {
+				selectionTable3[4].push(i);
+		}else if (selectionTable[i] == 6) {
+				selectionTable3[5].push(i);
+		}else if (selectionTable[i] == 7) {
+				selectionTable3[6].push(i);
+		}else if (selectionTable[i] == 8) {
+				selectionTable3[7].push(i);
+		}else if (selectionTable[i] == 9) {
+				selectionTable3[8].push(i);
+		}
+	}
+}
+
 initialize();
 
-getNumber = (id)=>{
+getNumber = id =>{
 	if (Number(Number(String(id)[0])) !=1) {
 		return ((Number(String(id)[0])-1)*column+Number(String(id)[1]))-1;
 	}
 	return (Number(String(id)[1]))-1;
 }
+sections();
+sections2();
 
 getRow = id =>{
 	var min  = 0;
@@ -91,3 +170,60 @@ getColumn = id =>{
 	}
 	return tempData;
 }
+
+valifyColumn = (id,num) =>{
+	var col = getColumn(id);
+	var isTrue = false;
+
+	for (var i = 0; i < col.length; i++) {
+		let index = col[i];
+		if (num == data[index]) {
+			isTrue = true;
+		}
+	}
+	return isTrue;
+}
+
+valifyRow = (id,num) =>{
+	var row = getRow(id);
+	var isTrue = false;
+
+	for (var i = 0; i < row.length; i++) {
+		let index = row[i];
+		if (num == data[index]) {
+			isTrue = true;
+		}
+	}
+	return isTrue;
+}
+
+valifySquare =(id,num)=>{
+	var tempData = selectionTable3[getSelection(id)-1];
+	var isTrue = false;
+	for (var i = 0; i < tempData.length; i++) {
+		let index = tempData[i];
+		if (num == tempData[i]) {
+			isTrue = true;
+		}
+	}
+	return isTrue;
+}
+
+setTimeout(()=>{
+	var number =1;
+	while(number != 81){
+		let num =1; 
+		let previous = number;
+		if (truthTable[number-1] && data[number-1] == 0) {
+			while(valifyRow(ids[number-1],number) || valifyColumn(ids[number-1],number)){
+				document.getElementById(ids[number-1]).classList.add("current");	
+				document.getElementById(ids[number-1]).innerHTML = num;
+				num++;
+			}
+		}else{
+			number++;
+		}
+		console.log(number);
+	}
+},5000);
+
