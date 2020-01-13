@@ -10,6 +10,7 @@ var data = [
 	0,0,5,2,0,6,3,0,0
 	];
 var truthTable = [];
+var truthTable2 = [];
 var selectionTable = [];
 var ids = [];
 var indexs = [];
@@ -31,8 +32,10 @@ generateTruthTable = data =>{
 	for (var i = 0; i < data.length; i++) {
 		if (data[i] == 0) {
 			truthTable.push(true);
+			truthTable2.push(true);
 		}else{
 			truthTable.push(false);
+			truthTable2.push(false);
 		}
 	}
 }
@@ -202,28 +205,44 @@ valifySquare =(id,num)=>{
 	var isTrue = false;
 	for (var i = 0; i < tempData.length; i++) {
 		let index = tempData[i];
-		if (num == tempData[i]) {
+		if (num == tempData[index]) {
 			isTrue = true;
 		}
 	}
 	return isTrue;
 }
 
-setTimeout(()=>{
-	var number =1;
-	while(number != 81){
-		let num =1; 
-		let previous = number;
-		if (truthTable[number-1] && data[number-1] == 0) {
-			while(valifyRow(ids[number-1],number) || valifyColumn(ids[number-1],number)){
-				document.getElementById(ids[number-1]).classList.add("current");	
-				document.getElementById(ids[number-1]).innerHTML = num;
-				num++;
-			}
-		}else{
-			number++;
-		}
-		console.log(number);
+valifyGrid = (id,num)=>{
+	if (valifyRow(id,num) && valifyColumn(id,num) && valifySquare(id,num)) {
+		return false
+	}else{
+		return true
 	}
-},5000);
+}
+getID = ()=>{
+	for (var i =0;  i<truthTable.length; i++) {
+		if (truthTable[i]) {
+			return Number(ids[i]);
+		}
+	}
+	// return null
+}
+let ID = getID();
 
+while(ID <81){
+	let num = Math.floor(Math.random()*9);
+	// console.log(num)
+	num = (num== 0?1:num);
+	if (ID) {
+		// console.log(ID)
+		document.getElementById(ID).innerHTML = num;
+		document.getElementById(ID).classList.add("current");
+		truthTable[getNumber(ID)] = false;
+		ID = getID();
+// console.log(ID)
+		// console.log(getID());
+		// ID++;	
+	}else{
+		ID = 11;
+	}
+}
