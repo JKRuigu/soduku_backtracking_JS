@@ -120,5 +120,5 @@ for (var i = 1; i <= puzzle.length; i++) {
 }
 
 setTimeout(()=>{
-	// sodukuSolver(puzzle);	
+	sodukuSolver(puzzle);	
 },2000);
