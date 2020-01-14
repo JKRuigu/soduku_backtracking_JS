@@ -108,10 +108,17 @@ function print(puzzle) {
 
 for (var i = 1; i <= puzzle.length; i++) {
 	for (var j = 1; j <= 9; j++) {
-		let v = String(i)+String(j);
-		document.getElementById(v).innerHTML = puzzle[i-1][j-1];
+		let ID = String(i)+String(j);
+		j < 4 && i <4?document.getElementById(ID).classList.add("one"):null
+		j > 6 && i > 6?document.getElementById(ID).classList.add("one"):null
+		j <4  && i > 6?document.getElementById(ID).classList.add("one"):null
+		j > 6  && i < 4?document.getElementById(ID).classList.add("one"):null
+		j > 3 && j <7 && i > 3 && i < 7?document.getElementById(ID).classList.add("one"):null
+		
+		document.getElementById(ID).innerHTML = puzzle[i-1][j-1];
 	}
 }
+
 setTimeout(()=>{
-	sodukuSolver(puzzle);	
+	// sodukuSolver(puzzle);	
 },2000);
