@@ -1,3 +1,4 @@
-# soduku_backtracking_JS
+# soduku_backtracking
+## Using JavaScript
 
 ![Image](./001.png)
